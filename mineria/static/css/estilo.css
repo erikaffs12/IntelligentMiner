@@ -1,0 +1,35 @@
+.fondo{
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+.white{
+    color: white;
+}
+
+.centrarTit{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+
+footer {
+	background-color: #1f2c38;  
+    padding: 0.6em 0;
+    margin-top: auto;
+    margin-top: 70px;
+    color: white;
+    font-size: small;
+    text-align: center;
+}
+
+.subtitle {
+    color: blueviolet;
+    text-align: left;
+}

@@ -1,0 +1,573 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  {% load static %}
+  <script type="text/javascript" src="{% static 'pronosticoAD/pronosticoAD.js' %}"></script>
+  <title> Pronóstico </title>
+
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster+Two:ital@1&display=swap" rel="stylesheet">
+
+
+  <style type="text/css">
+    #global {
+      max-width: 100%;
+      height: auto;
+      overflow-x: scroll;
+    }
+    #global14 {
+      max-width: 20%;
+      height: auto;
+      overflow-x: scroll;
+    }
+    #global2 {
+      max-width: 100%;
+      height: 380px;
+      overflow-y: scroll;
+    }
+    #global3 {
+      max-width: 100%;
+      height: 300px;
+      overflow-y: scroll;
+    }
+    #global4 {
+      max-width: 30%;
+      height: 300px;
+      overflow-y: scroll;
+    }
+    #global5 {
+      max-width: 80%;
+      height: 300px;
+      overflow-y: scroll;
+    }
+    #global11 {
+      max-width: 100%;
+      height: 500px;
+      overflow-y: scroll;
+    }
+    #global6 {
+      max-width: 50%;
+      height: auto;
+      overflow-y: scroll;
+    }
+    #mensajes {
+      height: auto;
+    }
+    .cardCentrar{
+      display: flex;
+      justify-content: center !important;
+    }
+
+    h4.titulo{
+      margin-top: 10px;
+      margin-bottom: 20px;
+      color: palevioletred;
+      font-family: 'Bebas Neue';
+      font-size: 50px;
+      text-transform: uppercase;
+      font-weight: 800;
+      text-shadow: 3px 3px pink;
+    }
+
+    .card-header{
+      color: #074141;
+      font-family: 'Bebas Neue';
+      font-size: 25px;
+      font-weight: 800;
+    }
+    .selectAltura {
+      text-align: center;
+      float:left;
+      margin-left: 30%;
+      height:60px;
+      width:250px;
+      font-size: medium;
+    }
+    .selectAltura2 {
+      text-align: center;
+      height:80px;
+      width:200px;
+      font-size: medium;
+    }
+    .selectAltura3 {
+      text-align: center;
+      height: 60px;
+      font-size: medium;
+    }
+    .selectAltura4 {
+      text-align: center;
+      height: 40px;
+      font-size: medium;
+    }
+    .selectAltura5 {
+      text-align: center;
+      font-size: medium;
+    }
+    .boton1 {
+      height:40px;
+      width:80px;
+    }
+    .boton2 {
+      height:40px;
+      width:80px;
+    }
+
+  </style>
+</head>
+
+<body style="background-color: #FBFBF5;">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2c38;">
+    <div class="container-fluid">
+      <div class="row w-55 text-left">
+        <div class="col">
+          <a class="navbar-brand" href="/">
+            <img src="{% static '/images/Logo.png' %}" width="120" height="80">
+          </a>
+        </div>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'eda' %}">EDA</a>
+          </li>
+          &nbsp;&nbsp;
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'acpd' %}">PCA / ACD</a>
+          </li>
+          &nbsp;&nbsp;
+          <li class="nav-item dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Árboles de Decisión
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'pronosticoAD' %}" >Pronóstico</a></li>
+              <li><a class="dropdown-item" href="{% url 'clasificacionAD' %}">Clasificación</a></li>
+            </ul>
+          </li>
+          &nbsp;&nbsp;
+          <li class="nav-item dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Bosques Aleatorios
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'pronosticoBA' %}">Pronóstico</a></li>
+              <li><a class="dropdown-item" href="{% url 'clasificacionBA' %}">Clasificación</a></li>
+            </ul>
+          </li>
+          &nbsp;&nbsp;
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'kmeans' %}">Segmentación y Clasificación</a>
+          </li>
+          &nbsp;&nbsp;
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">SVM</a>
+          </li>
+          &nbsp;&nbsp;
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'historico' %}">Historial</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br><br>
+  <div class="container-sm cardCentrar">
+    <div class="card text-left border-danger" style="width: 100rem;">
+      <div class="card-body">
+        <h4 class="card-title text-center titulo">Árboles de Decisión (Pronóstico)</h4> 
+        <p class="card-text">Un árbol de decisión es una estructura jerárquica eficiente y escalable que divide los 
+          datos en función de determinadas condiciones, permiten resolver problemas de <b>pronóstico</b> y 
+          <b>clasificación</b> además de que admiten valores numéricos y nominales. Es importante conocer su estructura:</p>
+        <ul>
+          <li type="disc">Nodo principal: Representa toda la población que posteriormente se dividirá (también es considerado como nodo de decisión)</li>
+          <li type="disc">Nodo de decisión: Se encarga de dividir los datos dependiendo de una decisión.</li>
+          <li type="disc">Nodo hoja: Es donde recae la decisión final.</li>
+          <li type="disc">Profundidad: Indica los niveles que tiene el árbol de decisión.</li>
+        </ul>
+        <p class="card-text"> Es importante definir límites sino el árbol tendrá un 100% de precisión en el conjunto de datos de
+          entrenamiento lo que ocasionará <b>sobreajuste </b>, en el peor de los casos tendrá una hoja por cada observación (elemento).</p>
+      </div>
+    </div>
+  </div> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Gráficas para tener idea general del comportamiento de los datos del DataFrame
+        </div>
+        <div class="card-body">
+          <section>
+            <form id="graficas">
+              Seleccione las variables a graficar:
+              <center>
+              <select class="form-select form-select-sm selectAltura2" aria-label=".form-select-sm example" name="columnas" id="columnas" multiple>
+                {% for i in data.columnas %}
+                <option>{{ i }}</option>
+                {% endfor %}
+              </select>
+              </center>
+              <br>
+              <center><input class="btn btn-success boton1" type="submit"></center>
+            </form>
+            <center><button class="btn btn-danger boton1" onclick="limpiarImagenes('#img-graficas')">Limpiar</button></center>            
+          </section>
+          <center><section id="img-graficas"></section></center>
+        </div>
+      </div>
+    </div> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Selección de variables predictoras (X), variable a pronosticar (Y) y parámetros.
+        </div>
+        <div class="card-body">
+          <center>
+          <div class="input-group mb-4" style="width: 400px">
+            <span class="input-group-text selectAltura3" id="inputGroup-sizing-default">Variables predictoras (X):</span>
+            <select class="form-select form-select-sm selectAltura3" aria-label=".form-select-sm example" name="columnas" id="xarbol" multiple>
+              {% for i in data.columnas %}
+              <option>{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="input-group mb-4" style="width: 400px">
+            <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Variable a pronosticar (Y):</span>
+            <select class="form-select form-select-sm selectAltura4" aria-label=".form-select-sm example" name="columnas" id="yarbol">
+              {% for i in data.columnas %}
+              <option>{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Tamaño de prueba:</span>
+            <input type="number" class="form-control selectAltura5" min="0.01" max="0.99" step="0.01" placeholder="test_size" id="testArbol">
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Máxima profundidad a la cual puede llegar el árbol:</span>
+              <input type="number" class="form-control selectAltura5" min="1" max="50" step="1" placeholder="max_depth" id="depthArbol">
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Cantidad mínima que debe de tener nodo hoja:</span>
+            <input type="number" class="form-control selectAltura5" min="1" max="50" step="1" placeholder="min_samples_leaf" id="leafsArbol">
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Cantidad mínima para que un nodo de decisión se divida:</span>
+            <input type="number" class="form-control selectAltura5" min="2" max="50" step="1" placeholder="min_samples_split" id="nodesArbol">
+          </div>  
+        </div>
+        <center>
+        <button class="btn btn-success" onclick="realizarPronosticoArbol()">Enviar</button>
+        <button class="btn btn-danger" onclick="limpiarSecciones()">Limpiar</button>
+        <br><br>
+        </center>
+        </div>
+      </div>
+    </div> 
+  <br><br>
+  </article>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          DataFrame de variables predictoras (X) y variable a pronosticar (Y).
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header text-center">
+                  1) DataFrame de variables predictoras (X).
+                </div>
+                <div class="card-body">
+                  <div id="global3">
+                    <div id="mensajes">
+                      <section id="X"></section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header text-center">
+                  2) DataFrame de variable a pronosticar (Y).
+                </div>
+                <div class="card-body">
+                  <div id="global3">
+                    <div id="mensajes">
+                      <section id="Y"></section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Divisón de datos
+        </div>
+        <div class="card-body">
+          Aquí internamente se realiza la selección de los datos para X y para Y que serán utilizados como entrenamiento y como prueba de acuerdo con el tamaño de prueba ingresado anteriormente.<br>
+          A continuación se muestran los datos de prueba de X:
+          <br></br>
+          <center>
+            <div id="global5">
+              <div id="mensajes">
+                <section id="Xtest"></section>
+              </div>
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  </article> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Se entrena el modelo
+        </div>
+        <div class="card-body">
+          Internamente se entrena el modelo de acuerdo con los valores max_depth, min_samples_split y min_samples_leaf indicados al inicio:
+          <br><br>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header text-center">
+                  1) Se genera el pronóstico
+                </div>
+                <center>
+                  <div class="card-body">
+                    <div id="global3">
+                      <div id="mensajes">
+                        <section id="prono"></section>
+                      </div>
+                    </div>
+                  </div>
+                </center> 
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header text-center">
+                  2) Comparar los valores de prueba y pronosticados
+                </div>
+                <div class="card-body">
+                  <div id="global3">
+                    <div id="mensajes">
+                      <section id="Ycomp"></section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col align-self-start">
+              <br>
+              <div class="card">                
+                <div class="card-header text-center">
+                  3) Score y otros criterios de regresión para conocer la efectividad del modelo
+                </div>
+                <div class="card-body">
+                  <section id="predInfo"></section>     
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Conformación del modelo de pronóstico
+        </div>
+        <div class="card-body">
+          Se muestra una gráfica de los valores reales (rojo) y los valores estimados (verde) para poder compararlos:
+          <br>
+          <center>
+            <section id="predGraph"></section>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  </article> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Importancia de las variables
+        </div>
+        <div class="card-body">
+          Se muestra un DataFrame con la importancia de las variables ordenándolas de mayor a menor importancia:
+          <br><br>
+          <center>
+            <div id="global6">
+              <div id="mensajes6">
+                <section id="dfImport"></section>
+              </div>
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  </article> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Conformación del árbol
+        </div>
+        <div class="card-body">
+          <center>
+            <section id="tree"></section>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  </article> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Reglas del modelo
+        </div>
+        <div class="card-body">
+          <div id="global11">
+            <div id="mensajes">
+              <pre id="reglas"></pre>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+  </article> 
+  <br><br>
+
+  <article>
+    {% csrf_token %}
+    <!-- <h2 class="subtitle container-fluid">Información general del DataFrame:</h2> -->
+    <div class="container-sm cardCentrar">
+      <div class="card border-danger" style="width: 1300px">
+        <div class="card-header text-center">
+          Nuevos pronósticos
+        </div>
+        <div class="card-body">
+          Ingrese el valor de las siguientes variables:
+          <center>
+          <section id="nuevP">
+            <div class="input-group mb-2" style="width: 200px">
+              <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Open: </span>
+              <input type="number" class="form-control selectAltura5" id="valOpen">
+            </div>
+            <div class="input-group mb-2" style="width: 200px">
+              <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">High:</span>
+                <input type="number" class="form-control selectAltura5" id="valHigh">
+            </div>
+            <div class="input-group mb-2" style="width: 200px">
+              <span class="input-group-text selectAltura4" id="inputGroup-sizing-default">Low:</span>
+              <input type="number" class="form-control selectAltura5" id="valLow">
+            </div>
+            <br>
+            <button class="btn btn-success boton1" onclick="realizarNuevoPronostico()">Enviar</button>  
+            <button class="btn btn-danger boton1" onclick="limpiarImagenes('#newP')">Eliminar</button> 
+          </section>
+          </center>
+          <br>    
+          <center>
+            <div id="global14">
+              <div id="mensajes6">
+                <section id="newP"></section>
+              </div>
+            </div>     
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  </article> 
+  <br><br>
+
+  <br><br><br><br><br>
+  <div class="container-sm cardCentrar">
+    <a href="/">
+      <button class="btn btn-success regular-button botones"> Regresar para ingresar otro archivo </button>
+    </a>
+  </div> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</body>
+
+<footer>
+  Intelligent Miner  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fernández Soto Erika Fabiola  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Minería de Datos
+</footer>
+</html>
+
+
+
